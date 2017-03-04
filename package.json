@@ -4,12 +4,15 @@
   "description": "Get real-time weather images from Himawari probe.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "keywords": [
     "himawari"
   ],
   "author": "Kevin Sam <itskevinsam@yahoo.co.in>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "wallpaper": "^2.4.0"
+  }
 }

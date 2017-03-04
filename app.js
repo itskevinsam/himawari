@@ -3,6 +3,8 @@
 const http = require('http');
 const fs = require('fs');
 
+const wallpaper = require('wallpaper');
+
 const resourceProvider = 'http://ds.data.jma.go.jp/mscweb/data/himawari/';
 
 const writeToPath = '';
@@ -87,11 +89,18 @@ const padTimeNumeric = (number)=>{
 }
 
 const getResource = () => {
-	const writableFileStream = fs.createWriteStream(writeToPath+writeToFile);
+	const writeToFileWithPath = writeToPath+writeToFile;
+	const writableFileStream = fs.createWriteStream(writeToFileWithPath);
 	const imageLocation = getImageLocationFrom('se4', 'hrp');
-	console.log('Ftcing resource from '+imageLocation);
+	console.log('Fetcing resource from '+imageLocation);
 	http.request(imageLocation, (res)=>{
 		res.pipe(writableFileStream);
+
 	}).end();
+	writableFileStream.on('finish', ()=>{
+		wallpaper.set(writeToFileWithPath).then(()=>{
+			console.log('Updated Wallpaper');
+		});
+	});
 }	
 getResource();	
